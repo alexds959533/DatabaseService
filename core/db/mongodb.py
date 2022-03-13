@@ -1,4 +1,5 @@
-from motor.motor_asyncio import AsyncIOMotorClient
+from motor.motor_asyncio import AsyncIOMotorDatabase, AsyncIOMotorClient
+from core.settings import DATABASE
 
 
 class DataBase:
@@ -8,5 +9,5 @@ class DataBase:
 db = DataBase()
 
 
-async def get_database() -> AsyncIOMotorClient:
-    return db.client
+async def get_database() -> AsyncIOMotorDatabase:
+    return db.client[DATABASE]

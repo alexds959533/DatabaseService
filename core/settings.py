@@ -14,6 +14,6 @@ MONGO_HOST = os.getenv('MONGO_HOST', 'localhost')
 MONGO_PORT = os.getenv('MONGO_PORT', '27017')
 MONGO_URL = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
 
-database_name = 'files'
-files_collection = 'files_metadata'
+DATABASE = os.getenv('DATABASE_FILESTORAGE_NAME', 'files')
+DATABASE_FILES_COLLECTION = os.getenv('DATABASE_FILESTORAGE_NAME', 'files_metadata')
 

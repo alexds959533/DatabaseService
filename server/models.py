@@ -21,6 +21,13 @@ class ObjectIdStr(str):
         return str(v)
 
 
+class FileCreate(BaseModel):
+    filename: str = Field(...)
+    file_id: ObjectIdStr = Field(...)
+    upload_date: datetime = Field(...)
+    user_id: int = Field(...)
+
+
 class FileRetrieve(BaseModel):
     id: ObjectIdStr = Field(..., alias='_id')
     filename: str = Field(...)
@@ -31,17 +38,3 @@ class FileRetrieve(BaseModel):
 
 class FileUpdate(BaseModel):
     filename: Optional[str]
-    owner: Optional[str]
-
-
-class FileUploadForm(BaseModel):
-    filename: str = Field(...)
-    owner: str = Field(...)
-
-    @classmethod
-    def as_form(
-        cls,
-        filename: str = Form(...),
-        owner: str = Form(...)
-    ):
-        return cls(filename=filename, owner=owner)
