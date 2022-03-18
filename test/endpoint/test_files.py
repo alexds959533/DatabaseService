@@ -1,33 +1,29 @@
-from fastapi.testclient import TestClient
+from httpx import AsyncClient
+from ..conftest import app
+
 import pytest
 
 from server.models import ObjectIdStr
 
 
-@pytest.mark.anyio
-def test_get_files(
-    client: TestClient
+@pytest.mark.asyncio
+async def test_get_files(
 ) -> None:
-    data = {
-        "filename": "string",
-        "owner": "string"
-    }
-    response = client.get(
-        "/file/", json=data,
-    )
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/file/")
     assert response.status_code == 200
 
 
-@pytest.mark.anyio
-def test_create_file(
-    client: TestClient,
+@pytest.mark.asyncio
+async def test_create_file(
     tmpdir_factory
 ) -> None:
     file_name = 'test.txt'
     file = tmpdir_factory.mktemp('data').join(file_name)
     with file.open('w') as f:
         f.write('Test')
-    response = client.post("/file/", files={"file": (file_name, open(file, "rb"))})
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/file/", files={"file": (file_name, open(file, "rb"))})
     content = response.json()
     assert response.status_code == 201
     assert content['filename'] == file_name

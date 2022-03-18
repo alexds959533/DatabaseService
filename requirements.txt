@@ -6,3 +6,6 @@ pymongo==3.12.3
 python-dotenv==0.19.2
 python-multipart==0.0.5
 pytest==7.0.1
+httpx
+pytest_asyncio
+

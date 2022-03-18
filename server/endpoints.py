@@ -1,6 +1,7 @@
 from random import randint
 from fastapi import APIRouter, Body, responses, Depends, File, UploadFile
 
+from types import MappingProxyType, DynamicClassAttribute
 from core.db.mongodb import AsyncIOMotorDatabase, get_database
 
 from .crud import (
