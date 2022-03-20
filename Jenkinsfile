@@ -6,6 +6,9 @@ pipeline {
          stage("build") {
             steps {
                 echo 'building the application ...'
+                sh '''
+                docker --version
+                docker compose version
             }
          }
          stage("test") {
